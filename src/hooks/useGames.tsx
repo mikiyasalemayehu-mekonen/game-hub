@@ -1,20 +1,12 @@
 import apiClient from "@/services/api-client";
 import { CanceledError } from "axios";
 import { useState, useEffect } from "react";
+import type { Game, GamesResponse } from "@/types/game";
 
-interface Game {
-  count: number;
-  results: Array<{
-    id: number;
-    name: string;
-    background_image: string;
-    rating: number;
-    platforms: Array<{ platform: { name: string } }>;
-  }>;
-}
+
 
 const useGames = () => {
-  const [games, setGames] = useState<Game["results"]>([]);
+  const [games, setGames] = useState<Game[]>([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -22,7 +14,7 @@ const useGames = () => {
 
     const fetchGames = async () => {
       try {
-        const response = await apiClient.get<Game>("/games", {
+        const response = await apiClient.get<GamesResponse>("/games", {
           signal: controller.signal,
         });
         setGames(response.data.results);
