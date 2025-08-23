@@ -16,3 +16,8 @@ export interface GamesResponse {
   count: number;
   results: Game[];
 }
+export interface Platform {
+  id: number;
+  name: string;
+  slug: string;
+}

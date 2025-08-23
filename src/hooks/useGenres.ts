@@ -8,6 +8,8 @@ export interface Genre {
 
 
 const useGenres = () =>useData<Genre>("/genres")
+console.log("useGenres hook called");
+console.log(useGenres);
     
    
     
