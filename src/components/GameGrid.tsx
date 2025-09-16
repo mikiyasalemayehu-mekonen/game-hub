@@ -14,11 +14,12 @@ interface Props {
 function GameGrid({gameQuery}:Props) {
   const { data, error,isLoading } = useGames(gameQuery);
   const skeltons = [1,2,3,4,5,6];
+  if (error) return <p>{error}</p>;
 
   return (
     <>
-      {error && <p>{error}</p>}
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={3} padding={10} />
+      
+      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 5 }} spacing={6} padding={10} />
       {isLoading &&
         skeltons.map((skeleton) => (
           <GameCardContainer key={skeleton}>
