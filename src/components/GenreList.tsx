@@ -1,38 +1,55 @@
-import useGenres, { type Genre } from '@/hooks/useGenres'
-import getCroppedImageUrl from '@/services/image-urls';
-import { Button, Heading, HStack, Image, List, ListItem, Spinner, Text } from '@chakra-ui/react';
+// src/components/GenreList.tsx
+import useGenres, { type Genre } from "@/hooks/useGenres";
+import getCroppedImageUrl from "@/services/image-urls";
+import {
+  Button,
+  Heading,
+  HStack,
+  Image,
+  List,
+  ListItem,
+  Spinner,
+  Text,
+  Box,
+} from "@chakra-ui/react";
 
-interface Props{
-  onSelectGenre:(genre:Genre) => void;
+interface Props {
+  onSelectGenre: (genre: Genre) => void;
   selectedGenre?: Genre | null;
 }
 
-function GenreList({onSelectGenre, selectedGenre}:Props) {
-    const {data,isLoading,error} = useGenres();
-   if (error) return <Text color="red.500 ">Failed to load genres</Text>;
-   if (isLoading) return <Spinner />;
+function GenreList({ onSelectGenre, selectedGenre }: Props) {
+  const { data, isLoading, error } = useGenres();
+
+  if (error) return <Text color="red.500">Failed to load genres</Text>;
+  if (isLoading) return <Spinner />;
+
   return (
-    <>
-      <Heading fontSize="2xl" paddingY={3}>
+    <Box padding={{ base: 2, lg: 0 }}>
+      <Heading fontSize={{ base: "xl", lg: "2xl" }} paddingY={3}>
         Genres
       </Heading>
       <List>
         {data.map((genre) => (
-          <ListItem key={genre.id} paddingY="5px">
-            <HStack>
+          <ListItem key={genre.id} paddingY={{ base: "3px", lg: "5px" }}>
+            <HStack spacing={{ base: 2, lg: 3 }}>
+              {" "}
+              {/* Reduced spacing: 2 on mobile, 3 on desktop */}
               <Image
-                boxSize="32px"
+                boxSize={{ base: "24px", lg: "32px" }}
                 borderRadius={8}
                 objectFit="cover"
                 src={getCroppedImageUrl(genre.image_background)}
-              ></Image>
+                alt={`${genre.name} image`}
+              />
               <Button
                 textAlign="left"
                 whiteSpace="normal"
                 fontWeight={selectedGenre?.id === genre.id ? "bold" : "normal"}
                 onClick={() => onSelectGenre(genre)}
-                fontSize="lg"
+                fontSize={{ base: "md", lg: "lg" }}
                 variant="link"
+                width="full"
               >
                 {genre.name}
               </Button>
@@ -40,8 +57,8 @@ function GenreList({onSelectGenre, selectedGenre}:Props) {
           </ListItem>
         ))}
       </List>
-    </>
+    </Box>
   );
 }
 
-export default GenreList
+export default GenreList;

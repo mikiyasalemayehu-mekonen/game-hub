@@ -9,25 +9,25 @@ import {
 import { MdPhoneIphone } from "react-icons/md";
 import { SiNintendo } from "react-icons/si";
 import { BsGlobe } from "react-icons/bs";
-import type { platform } from "../types/game";
 import { HStack, Icon } from "@chakra-ui/react";
+import type { Platform } from "@/hooks/useGames";
 import type { IconType } from "react-icons";
 
 interface Props {
-  platforms: platform[];
+  platforms: Platform[];
 }
 
-function PlatformIconList({ platforms }: Props) {
+const PlatformIconList = ({ platforms = [] }: Props) => {
   const iconMap: { [key: string]: IconType } = {
     pc: FaWindows,
     playstation: FaPlaystation,
     xbox: FaXbox,
     nintendo: SiNintendo,
-    ios: FaApple,
-    android: FaAndroid,
+    mac: FaApple,
     linux: FaLinux,
+    android: FaAndroid,
+    ios: MdPhoneIphone,
     web: BsGlobe,
-    phone: MdPhoneIphone,
   };
 
   return (
@@ -37,6 +37,6 @@ function PlatformIconList({ platforms }: Props) {
       ))}
     </HStack>
   );
-}
+};
 
 export default PlatformIconList;
